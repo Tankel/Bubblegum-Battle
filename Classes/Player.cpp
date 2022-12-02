@@ -4,12 +4,14 @@
 #include "Scene2.h"
 #include "Scene3.h"
 #include "Pause.h"
+#include "Victory.h"
 #include <cocostudio/SimpleAudioEngine.h>
 
 USING_NS_CC;
 
 int pLife = 5;
 int nb = 18;
+int maxScore = 0;
 Node* Player::createNode()
 {
     auto layer = Player::create();
@@ -20,6 +22,8 @@ bool Player::init() {
     {
         return false;
     }
+    userdefaults = cocos2d::UserDefault::getInstance();
+    //userdefaults -> setIntegerForKey("FScore");
     damage = 1;
     vel = 600;
     jumph = 200;
@@ -59,6 +63,10 @@ void Player::initRecharge()
     rechargeBarB->setScale(1.3);
     this->addChild(rechargeBarB);
     this->addChild(rechargeBar);
+
+    //auto FScoreLabel = Label::createWithTTF("FINAL SCORE: "+std::to_string(userdefaults->getIntegerForKey("FScore")), "fonts/NineteenNinetySeven.ttf", 55);
+    //FScoreLabel->setPosition(Vec2(800,200));
+    //this->addChild(FScoreLabel);
 }
 void Player::initController()
 {
@@ -499,7 +507,7 @@ bool Player::OnContactBegin(cocos2d::PhysicsContact& contact)
             {
                 switch (power)
                 {
-                CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(0.5);
+                CocosDenshion::SimpleAudioEngine::getInstance()->setEffectsVolume(1);
                 CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Music/PowerUp.mp3");
                 case 0:
                 {
@@ -594,6 +602,9 @@ bool Player::OnContactBegin(cocos2d::PhysicsContact& contact)
 
                     if (eLife < 1)
                     {
+                        if(iScore>userdefaults->getIntegerForKey("FScore"))
+                            userdefaults->setIntegerForKey("FScore",iScore);
+                        
                         _player->stopActionByTag(3);
                         _player->setSpriteFrame("_sprite14.png");
                         _player->setFlippedX(false);
@@ -638,8 +649,10 @@ bool Player::OnContactBegin(cocos2d::PhysicsContact& contact)
                     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Music/pGrunt.mp3");
                     //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Music/hitHurt.mp3");
                     _hearts.at(pLife)->setColor(Color3B::BLACK);
-                    if (pLife == 0)
+                    if (pLife < 1)
                     {
+                        if (iScore > userdefaults->getIntegerForKey("FScore"))
+                            userdefaults->setIntegerForKey("FScore", iScore);
                         nodeA->getPhysicsBody()->setEnabled(false);
                         gameOver = true;
                         barLife->setPercentage(0);
@@ -698,6 +711,8 @@ bool Player::OnContactBegin(cocos2d::PhysicsContact& contact)
                     if (eLife < 1)
                     {
                         //pLife = 0;
+                        if (iScore > userdefaults->getIntegerForKey("FScore"))
+                            userdefaults->setIntegerForKey("FScore", iScore);
                         _player->stopActionByTag(3);
                         _player->setSpriteFrame("_sprite14.png");
                         _player->setFlippedX(false);
@@ -731,8 +746,10 @@ bool Player::OnContactBegin(cocos2d::PhysicsContact& contact)
                     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Music/pGrunt.mp3");
                     //CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Music/hitHurt.mp3");
                     _hearts.at(pLife)->setColor(Color3B::BLACK);
-                    if (pLife == 0)
+                    if (pLife < 1)
                     {
+                        if (iScore > userdefaults->getIntegerForKey("FScore"))
+                            userdefaults->setIntegerForKey("FScore", iScore);
                         nodeB->getPhysicsBody()->setEnabled(false);
                         nodeA->stopAction(sequence);
                         nodeA->runAction(tinTo3);
@@ -814,6 +831,8 @@ void Player::plusScore(float dt)
     plus->runAction(fade);
     iScore += 100;
     score->setString("SCORE:" + std::to_string(iScore));
+    if (iScore > userdefaults->getIntegerForKey("FScore"))
+        userdefaults->setIntegerForKey("FScore", iScore);
 }
 void Player::returnHome(Ref* pSender)
 {
@@ -825,34 +844,37 @@ void Player::nextScene(float dt)
 {
     contScene++;
     damage = 1;
-    Scene* scene1 = Scene2::createScene();
-    Scene* scene2 = Scene3::createScene();
-    Scene* scene3 = HelloWorld::createScene();
+
+    //Scene* scene3 = Victory::createScene();
     CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0);
     CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic(true);
+    Scene* scene1;
+    Scene* scene2;
+    Scene* scene3;
     switch (contScene)
     {
     case 1:
+        scene1 = Scene2::createScene();
         CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Boss2.MP3", true);
         CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
         //checar diferencia entre TransitionSlideInR y TransitionMoveInR
         Director::getInstance()->replaceScene(TransitionMoveInR::create(1.1, scene1));
         break;
     case 2:
-        //pLife = auxiLife;
+        scene2 = Scene3::createScene();
+        //pLife = auxiLife;d
         CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Boss3.MP3", true);
         CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2);
         Director::getInstance()->replaceScene(TransitionMoveInR::create(1.1, scene2));
         break;
     case 3:
         //pLife = auxiLife;
+        scene3 = Victory::createScene();
         iScore = 0;
         CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Menu.MP3", true);
         CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2);
         contScene = 0;
         Director::getInstance()->replaceScene(TransitionProgressInOut::create(0.4, scene3));
-        break;
-    default:
         break;
     }
 }

@@ -9,6 +9,7 @@
 
 using namespace cocos2d;
 extern int pLife;
+extern int maxScore;
 //extern bool isPaused;
 
 class Player : public cocos2d::Layer
@@ -16,6 +17,7 @@ class Player : public cocos2d::Layer
     //Player() {};
 public:
     //int iScore=0;
+    UserDefault* userdefaults;
     int musicPlaying;
     int damage;
     int eLife;

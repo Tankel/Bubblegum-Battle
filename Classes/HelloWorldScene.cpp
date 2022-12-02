@@ -1,6 +1,8 @@
 #include "HelloWorldScene.h"
 #include "Player.h"
 #include "Scene1.h"
+#include "Score.h"
+#include "Victory.h"
 #include <cocostudio/SimpleAudioEngine.h>
 
 USING_NS_CC;
@@ -33,11 +35,14 @@ bool HelloWorld::init()
 
     startMenu = MenuItemImage::create("MENU/_menu0.png","MENU/_menu1.png", CC_CALLBACK_1(HelloWorld::changeScene,this));
     exitMenu = MenuItemImage::create("MENU/_menu2.png", "MENU/_menu3.png", CC_CALLBACK_1(HelloWorld::exitGame, this));
+    scoreMenu = MenuItemImage::create("MENU/_menu4.png", "MENU/_menu5.png", CC_CALLBACK_1(HelloWorld::viewScore, this));
 
-    Menu* menu = Menu::create(startMenu, exitMenu, nullptr);
+    Menu* menu = Menu::create(startMenu, exitMenu, scoreMenu, nullptr);
     menu->setPosition(Point::ZERO);
-    startMenu->setPosition(visibleSize.width / 2 + origin.x + 520, visibleSize.height / 2 + origin.y + 300);
-    exitMenu->setPosition(visibleSize.width / 2 + origin.x + 520, visibleSize.height / 2 + origin.y + 100);
+    startMenu->setPosition(visibleSize.width / 2 + origin.x + 520, visibleSize.height / 2 + origin.y + 400);
+    exitMenu->setPosition(visibleSize.width / 2 + origin.x + 520, visibleSize.height / 2 + origin.y);
+    scoreMenu->setPosition(visibleSize.width / 2 + origin.x + 520, visibleSize.height / 2 + origin.y + 200);
+
     this->addChild(menu);
     auto author2 = Label::createWithTTF("by", "fonts/NineteenNinetySeven.ttf", 35);
     auto author = Label::createWithTTF("Luis Reyes", "fonts/NineteenNinetySeven.ttf", 55);
@@ -51,6 +56,7 @@ bool HelloWorld::init()
 
 void HelloWorld::initMusic()
 {
+    CocosDenshion::SimpleAudioEngine::getInstance()->stopBackgroundMusic(false);
     CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Music/Menu.MP3",true);
     CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2);
 }
@@ -70,6 +76,12 @@ void HelloWorld::exitGame(Ref* pSender)
     CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Music/blipSelect.mp3");
     //Director::getInstance()->end();
     exit(0);
+}
+void HelloWorld::viewScore(Ref* pSender)
+{
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("Music/blipSelect.mp3");
+    auto scene = Score::createScene();
+    Director::getInstance()->pushScene(TransitionProgressHorizontal::create(0.4, scene));
 }
 void HelloWorld::initBackground()
 {

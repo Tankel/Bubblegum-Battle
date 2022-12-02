@@ -13,9 +13,11 @@ public:
     virtual bool init();
     cocos2d::MenuItemImage* startMenu;
     cocos2d::MenuItemImage* exitMenu;
+    cocos2d::MenuItemImage* scoreMenu;
     void initMusic();
     void changeScene(Ref *pSender);
     void exitGame(Ref* pSender);
+    void viewScore(Ref* pSender);
     void initBackground();
     CREATE_FUNC(HelloWorld);
 private:
