@@ -8,6 +8,4 @@ All the sprites were made completely by me in the pixelart style.
 The music and sound effects are free to use, they were taken from web pages and youtube videos where the authors authorize their permission.
 
 ## Gameplay
-https://www.youtube.com/watch?v=CfOb_d3r_Sk
-## Video explanation
 [![Bubblegum Battle](https://img.youtube.com/vi/CfOb_d3r_Sk/0.jpg)](https://www.youtube.com/watch?v=CfOb_d3r_Sk "Bubblegum Battle (CLICK TO WATCH!)")
