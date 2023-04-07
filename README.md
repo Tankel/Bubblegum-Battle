@@ -1,11 +1,28 @@
 # Bubblegum-Battle
-## Description
-This is a video game made in cocos2dx. It is a cuphead-style 2d game, where you fight against bosses with different abilities, and you can also acquire powerups during the game. Unfortunately it only has 3 levels.
+Bubblegum-Battle is a 2D video game created in Cocos2dx. The game is inspired by Cuphead and features boss battles with unique abilities and power-ups that can be acquired during gameplay. It currently has three levels.
 
-## Clarifications 
-This was made for my advanced programming class as my final project, so it was actually my first video game made in cocos2dx or in any other framework of this style
-All the sprites were made completely by me in the pixelart style.
-The music and sound effects are free to use, they were taken from web pages and youtube videos where the authors authorize their permission.
+## About
+This game was created as a final project for an advanced programming class and is the developer's first video game made using Cocos2dx or any similar framework. The developer created all the sprites in pixel art style, and the music and sound effects are free to use, taken from websites and YouTube videos where the authors authorized their use.
 
 ## Gameplay
+Click on the image below to watch a gameplay video of Bubblegum Battle:
+
 [![Bubblegum Battle](https://img.youtube.com/vi/CfOb_d3r_Sk/0.jpg)](https://www.youtube.com/watch?v=CfOb_d3r_Sk "Bubblegum Battle (CLICK TO WATCH!)")
+
+## Future Development
+The developer plans to continue working on Bubblegum-Battle, with the goal of adding more levels and features to the game. The developer also plans to create a phone version of the game for Android.
+
+## Installation
+To run the game, you will need to have Cocos2dx installed on your computer. You can download and install it from the official website: https://www.cocos.com/en/cocos2dx.
+
+After installation, you can clone the repository using the following command:
+
+bash
+Copy code
+'''
+git clone https://github.com/your-username/bubblegum-battle.git
+'''
+Once you have cloned the repository, you can open the project in your preferred Cocos2dx IDE and run it.
+
+## Contributions
+Contributions to this project are welcome. If you find a bug or have a suggestion for improvement, please create an issue on the repository or submit a pull request.
