@@ -17,11 +17,9 @@ To run the game, you will need to have Cocos2dx installed on your computer. You 
 
 After installation, you can clone the repository using the following command:
 
-bash
-Copy code
-'''
+```
 git clone https://github.com/your-username/bubblegum-battle.git
-'''
+```
 Once you have cloned the repository, you can open the project in your preferred Cocos2dx IDE and run it.
 
 ## Contributions
