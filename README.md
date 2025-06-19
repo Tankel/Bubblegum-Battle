@@ -9,9 +9,6 @@ Click on the image below to watch a gameplay video of Bubblegum Battle:
 
 [![Bubblegum Battle](https://img.youtube.com/vi/CfOb_d3r_Sk/0.jpg)](https://www.youtube.com/watch?v=CfOb_d3r_Sk "Bubblegum Battle (CLICK TO WATCH!)")
 
-## Future Development
-The developer plans to continue working on Bubblegum-Battle, with the goal of adding more levels and features to the game. The developer also plans to create a phone version of the game for Android.
-
 ## Installation
 To run the game, you will need to have Cocos2dx installed on your computer. You can download and install it from the official website: https://www.cocos.com/en/cocos2dx.
 
